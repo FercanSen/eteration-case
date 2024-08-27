@@ -4,7 +4,7 @@ import { PiSuitcaseSimpleLight } from "react-icons/pi";
 
 const Header: React.FC = () => {
   return (
-    <header className="flex items-center px-40 py-2 bg-primaryColor text-white">
+    <header className="flex items-center appPadding py-2 bg-primaryColor text-white">
       {/* Heading */}
       <h1 className="text-xl font-bold uppercase">ETERATION</h1>
 
