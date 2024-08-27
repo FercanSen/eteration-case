@@ -1,10 +1,20 @@
 import Header from "./components/Header";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ProductListPage from "./components/pages/ProductListPage";
+// import ProductDetailPage from "./components/pages/ProductDetailPage";
 
 function App() {
   return (
-    <div>
-      <Header />
-    </div>
+    <Router>
+      <div>
+        <Header />
+        {/* Main Page */}
+        <Routes>
+          <Route path="/" element={<ProductListPage />} />
+          {/* <Route path="/detail" element={<ProductDetailPage />} /> */}
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
