@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface FilterState {
   sortBy: string | null;
-  brand: string | null;
-  model: string | null;
+  brand: string[] | null;
+  model: string[] | null;
 }
 
 const initialState: FilterState = {
@@ -19,10 +19,10 @@ const filterSlice = createSlice({
     setSortBy: (state, action: PayloadAction<string | null>) => {
       state.sortBy = action.payload;
     },
-    setBrand: (state, action: PayloadAction<string | null>) => {
+    setBrand: (state, action: PayloadAction<string[] | null>) => {
       state.brand = action.payload;
     },
-    setModel: (state, action: PayloadAction<string | null>) => {
+    setModel: (state, action: PayloadAction<string[] | null>) => {
       state.model = action.payload;
     },
     clearFilters: (state) => {
