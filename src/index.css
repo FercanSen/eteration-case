@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .appPadding {
-  @apply px-40;
+  @apply px-24;
 }
