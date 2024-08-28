@@ -6,9 +6,9 @@ import {
   increaseQuantity,
   removeProduct,
   clearCart,
-  CartProduct,
 } from "../redux/cartSlice";
 import { currencySymbolTRY } from "../constants";
+import { CartProduct } from "../types/CartProduct";
 
 interface CartProps {
   products: CartProduct[];
