@@ -6,7 +6,7 @@ import { Product } from "../types/Product";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../redux/store";
 import { addProduct } from "../redux/cartSlice";
-import { currencySymbolTRY } from "../constants";
+import { TRY_CURRENCY_SYMBOL } from "../constants";
 
 const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -65,7 +65,7 @@ const ProductDetailPage: React.FC = () => {
               <div>
                 <h2 className="text-3xl font-semibold mb-2">{product.name}</h2>
                 <p className="text-xl mb-4">
-                  {product.price + " " + currencySymbolTRY}
+                  {product.price + " " + TRY_CURRENCY_SYMBOL}
                 </p>
                 <button
                   onClick={handleAddToCart}

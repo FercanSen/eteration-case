@@ -1,7 +1,7 @@
 import React from "react";
 import { RiUserLine } from "react-icons/ri";
 import { PiSuitcaseSimpleLight } from "react-icons/pi";
-import { currencySymbolTRY } from "../constants";
+import { TRY_CURRENCY_SYMBOL } from "../constants";
 import { Link } from "react-router-dom";
 
 const Header: React.FC = () => {
@@ -25,7 +25,7 @@ const Header: React.FC = () => {
         {/* Balance */}
         <div className="flex items-center space-x-2">
           <PiSuitcaseSimpleLight className="text-white" />
-          <span>117.00 {currencySymbolTRY}</span>
+          <span>117.00 {TRY_CURRENCY_SYMBOL}</span>
         </div>
 
         {/* Profile */}

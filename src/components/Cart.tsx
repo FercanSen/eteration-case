@@ -7,7 +7,7 @@ import {
   removeProduct,
   clearCart,
 } from "../redux/cartSlice";
-import { currencySymbolTRY } from "../constants";
+import { TRY_CURRENCY_SYMBOL } from "../constants";
 import { CartProduct } from "../types/CartProduct";
 
 interface CartProps {
@@ -55,7 +55,7 @@ const Cart: React.FC<CartProps> = ({ products }) => {
                   <div className="flex-1 overflow-hidden">
                     <h3 className="text-lg">{product.name}</h3>
                     <p className="text-primaryColor text-sm">
-                      {product.price + " " + currencySymbolTRY}
+                      {product.price + " " + TRY_CURRENCY_SYMBOL}
                     </p>
                   </div>
                   <div className="flex flex-col ml-4 space-y-2">
@@ -94,7 +94,7 @@ const Cart: React.FC<CartProps> = ({ products }) => {
         <div className="flex justify-between mb-2">
           <span className="text-lg font-semibold">Total:</span>
           <span className="text-lg font-semibold text-primaryColor">
-            {totalPrice + " " + currencySymbolTRY}
+            {totalPrice + " " + TRY_CURRENCY_SYMBOL}
           </span>
         </div>
         <button className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors mb-2">

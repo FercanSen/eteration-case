@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../redux/store";
 import { addProduct } from "../redux/cartSlice";
-import { currencySymbolTRY } from "../constants";
+import { TRY_CURRENCY_SYMBOL } from "../constants";
 
 interface ProductItemProps {
   id: number;
@@ -44,7 +44,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
       <img src={image} alt={name} className="w-full h-40 object-cover" />
       <div className="p-4 flex flex-col flex-grow">
         <p className="text-lg text-primaryColor mb-2 flex items-center justify-start">
-          {price + " " + currencySymbolTRY}
+          {price + " " + TRY_CURRENCY_SYMBOL}
         </p>
         <h3 className="text-xl font-semibold mb-4">{name}</h3>
         <div className="mt-auto">
