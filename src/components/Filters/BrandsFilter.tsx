@@ -36,7 +36,7 @@ const BrandsFilter: React.FC<BrandsFilterProps> = ({ items }) => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full p-2 mb-4 border rounded-lg"
         />
-        <ul className="space-y-2">
+        <ul className="space-y-2 max-h-48 overflow-y-auto">
           {filteredItems.map((item) => (
             <li key={item} className="flex items-center space-x-2">
               <input
