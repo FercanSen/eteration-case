@@ -13,28 +13,28 @@ const Header: React.FC = () => {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const term = e.target.value;
     setSearchTermLocal(term);
-    dispatch(setSearchTerm(term)); // Update the search term in Redux store
+    dispatch(setSearchTerm(term));
   };
 
   return (
-    <header className="flex items-center appPadding py-2 bg-primaryColor text-white">
+    <header className="flex flex-col md:flex-row items-center px-6 md:px-12 lg:px-24 py-2 bg-primaryColor text-white">
       {/* Heading */}
-      <Link to={"/"}>
-        <h1 className="text-xl font-bold uppercase">ETERATION</h1>
+      <Link to={"/"} className="text-xl font-bold uppercase mb-2 md:mb-0">
+        ETERATION
       </Link>
 
       {/* Search Bar */}
-      <div className="ml-28">
+      <div className="w-full md:w-auto flex-1 md:ml-8 mb-2 md:mb-0">
         <input
           type="text"
           placeholder="Search..."
           value={searchTerm}
           onChange={handleSearchChange}
-          className="px-4 py-2 w-64 text-black rounded-lg"
+          className="px-4 py-2 w-full md:w-64 text-black rounded-lg"
         />
       </div>
 
-      <div className="flex space-x-4 ml-auto">
+      <div className="flex space-x-4 mt-2 md:mt-0">
         {/* Balance */}
         <div className="flex items-center space-x-2">
           <PiSuitcaseSimpleLight className="text-white" />

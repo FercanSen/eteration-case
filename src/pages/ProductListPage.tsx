@@ -67,9 +67,9 @@ const ProductListPage: React.FC = () => {
   const productsToDisplay = sortedProducts.slice(startIndex, endIndex);
 
   return (
-    <div className="flex appPadding pt-8">
+    <div className="flex flex-col lg:flex-row px-6 md:px-12 lg:px-24 pt-8">
       {/* Product Filters */}
-      <div className="w-1/6">
+      <div className="w-full lg:w-1/6 mb-4 lg:mb-0">
         <ProductFilters />
       </div>
       {/* Product List */}
@@ -101,7 +101,7 @@ const ProductListPage: React.FC = () => {
         )}
       </div>
       {/* Cart */}
-      <div className="w-1/6">
+      <div className="w-full lg:w-1/6">
         <Cart products={cartProducts} />
       </div>
     </div>
