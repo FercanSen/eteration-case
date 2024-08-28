@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-
 import ProductFilters from "../components/ProductFilters";
 import ProductItem from "../components/ProductItem";
 import Cart from "../components/Cart";
@@ -15,6 +14,9 @@ const ProductListPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
   const cartProducts = useSelector((state: RootState) => state.cart.products);
+  const selectedBrands = useSelector((state: RootState) => state.filter.brand);
+  const selectedModels = useSelector((state: RootState) => state.filter.model);
+  const sortBy = useSelector((state: RootState) => state.filter.sortBy);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -31,18 +33,38 @@ const ProductListPage: React.FC = () => {
     fetchProducts();
   }, []);
 
-  // Apply search filter
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Apply search, brand, model, and sorting filters
+  const filteredProducts = products
+    .filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .filter((product) =>
+      selectedBrands?.length ? selectedBrands.includes(product.brand) : true
+    )
+    .filter((product) =>
+      selectedModels?.length ? selectedModels.includes(product.model) : true
+    );
 
-  // Calculate total pages based on the filtered number of products
-  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+  // Apply sorting
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    if (sortBy === "Price high to low")
+      return Number(b.price) - Number(a.price);
+    if (sortBy === "Price low to high")
+      return Number(a.price) - Number(b.price);
+    if (sortBy === "New to old")
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    if (sortBy === "Old to new")
+      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+    return 0;
+  });
+
+  // Calculate total pages based on the filtered and sorted number of products
+  const totalPages = Math.ceil(sortedProducts.length / ITEMS_PER_PAGE);
 
   // Calculate the index range for products to display
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
-  const productsToDisplay = filteredProducts.slice(startIndex, endIndex);
+  const productsToDisplay = sortedProducts.slice(startIndex, endIndex);
 
   return (
     <div className="flex appPadding pt-8">
@@ -53,15 +75,21 @@ const ProductListPage: React.FC = () => {
       {/* Product List */}
       <div className="flex-1 p-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {productsToDisplay.map((product) => (
-            <ProductItem
-              key={product.id}
-              id={product.id}
-              image={product.image}
-              name={product.name}
-              price={product.price}
-            />
-          ))}
+          {productsToDisplay.length > 0 ? (
+            productsToDisplay.map((product) => (
+              <ProductItem
+                key={product.id}
+                id={product.id}
+                image={product.image}
+                name={product.name}
+                price={product.price}
+              />
+            ))
+          ) : (
+            <p className="flex items-center justify-center">
+              No products found
+            </p>
+          )}
         </div>
         {/* Pagination */}
         {totalPages > 1 && (

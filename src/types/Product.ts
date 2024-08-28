@@ -6,4 +6,5 @@ export interface Product {
   brand: string;
   model: string;
   description: string;
+  createdAt: string;
 }
