@@ -2,12 +2,15 @@ import React from "react";
 import { RiUserLine } from "react-icons/ri";
 import { PiSuitcaseSimpleLight } from "react-icons/pi";
 import { currencySymbolTRY } from "../constants";
+import { Link } from "react-router-dom";
 
 const Header: React.FC = () => {
   return (
     <header className="flex items-center appPadding py-2 bg-primaryColor text-white">
       {/* Heading */}
-      <h1 className="text-xl font-bold uppercase">ETERATION</h1>
+      <Link to={"/"}>
+        <h1 className="text-xl font-bold uppercase">ETERATION</h1>
+      </Link>
 
       {/* Search Bar */}
       <div className="ml-28">
