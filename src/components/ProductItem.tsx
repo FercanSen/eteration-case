@@ -8,7 +8,7 @@ interface ProductItemProps {
   id: number;
   image: string;
   name: string;
-  price: number;
+  price: string;
 }
 
 const ProductItem: React.FC<ProductItemProps> = ({

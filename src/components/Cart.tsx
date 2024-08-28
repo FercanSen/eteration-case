@@ -34,7 +34,7 @@ const Cart: React.FC<CartProps> = ({ products }) => {
   };
 
   const totalPrice = products.reduce(
-    (total, product) => total + product.price * product.quantity,
+    (total, product) => total + Number(product.price) * product.quantity,
     0
   );
 
