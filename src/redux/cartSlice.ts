@@ -1,19 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-export interface CartProduct {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-}
+import { CartProduct } from "../types/CartProduct";
 
 interface CartState {
   products: CartProduct[];
 }
 
-const initialState: CartState = {
-  products: [],
+const loadCartFromLocalStorage = (): CartState => {
+  try {
+    const serializedCart = localStorage.getItem("cart");
+    if (serializedCart) {
+      return JSON.parse(serializedCart);
+    }
+    return { products: [] };
+  } catch (err) {
+    console.error("Could not load cart from localStorage", err);
+    return { products: [] };
+  }
 };
+
+const initialState: CartState = loadCartFromLocalStorage();
 
 const cartSlice = createSlice({
   name: "cart",
@@ -28,27 +33,41 @@ const cartSlice = createSlice({
       } else {
         state.products.push(action.payload);
       }
+      saveCartToLocalStorage(state);
     },
     increaseQuantity: (state, action: PayloadAction<number>) => {
       const product = state.products.find((p) => p.id === action.payload);
       if (product) {
         product.quantity += 1;
       }
+      saveCartToLocalStorage(state);
     },
     decreaseQuantity: (state, action: PayloadAction<number>) => {
       const product = state.products.find((p) => p.id === action.payload);
       if (product && product.quantity > 1) {
         product.quantity -= 1;
       }
+      saveCartToLocalStorage(state);
     },
     removeProduct: (state, action: PayloadAction<number>) => {
       state.products = state.products.filter((p) => p.id !== action.payload);
+      saveCartToLocalStorage(state);
     },
     clearCart: (state) => {
       state.products = [];
+      saveCartToLocalStorage(state);
     },
   },
 });
+
+const saveCartToLocalStorage = (state: CartState) => {
+  try {
+    const serializedCart = JSON.stringify(state);
+    localStorage.setItem("cart", serializedCart);
+  } catch (err) {
+    console.error("Could not save cart to localStorage", err);
+  }
+};
 
 export const {
   addProduct,
