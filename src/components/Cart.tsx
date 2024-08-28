@@ -100,12 +100,14 @@ const Cart: React.FC<CartProps> = ({ products }) => {
         <button className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors mb-2">
           Checkout
         </button>
+        {products.length > 0 && (
         <button
           onClick={handleClearCart}
           className="w-full py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
         >
           Clear Cart
         </button>
+      )}
       </div>
     </>
   );
