@@ -62,7 +62,7 @@ const Cart: React.FC<CartProps> = ({ products }) => {
                     <div className="flex items-center">
                       <button
                         onClick={() => handleDecreaseQuantity(product.id)}
-                        className="h-8 w-8 bg-gray-300 hover:bg-gray-400 flex items-center justify-center text-center"
+                        className="h-8 w-8 bg-gray-300 hover:bg-gray-400 flex items-center justify-center text-center rounded-l-lg"
                       >
                         -
                       </button>
@@ -71,7 +71,7 @@ const Cart: React.FC<CartProps> = ({ products }) => {
                       </span>
                       <button
                         onClick={() => handleIncreaseQuantity(product.id)}
-                        className="h-8 w-8 bg-gray-300 hover:bg-gray-400 flex items-center justify-center text-center"
+                        className="h-8 w-8 bg-gray-300 hover:bg-gray-400 flex items-center justify-center text-center rounded-r-lg"
                       >
                         +
                       </button>
