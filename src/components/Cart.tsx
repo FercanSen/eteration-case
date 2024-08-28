@@ -52,9 +52,9 @@ const Cart: React.FC<CartProps> = ({ products }) => {
                   key={product.id}
                   className="flex items-center justify-between border-b pb-2 mb-2"
                 >
-                  <div className="flex-1">
+                  <div className="flex-1 overflow-hidden">
                     <h3 className="text-lg">{product.name}</h3>
-                    <p className="text-primaryColor">
+                    <p className="text-primaryColor text-sm">
                       {product.price + " " + currencySymbolTRY}
                     </p>
                   </div>
@@ -89,7 +89,7 @@ const Cart: React.FC<CartProps> = ({ products }) => {
           </>
         )}
       </div>
-      {/* Card Summary */}
+      {/* Cart Summary */}
       <div className="border rounded-lg shadow-md p-4 mt-4 bg-white">
         <div className="flex justify-between mb-2">
           <span className="text-lg font-semibold">Total:</span>
