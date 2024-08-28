@@ -19,7 +19,7 @@ const Header: React.FC = () => {
   return (
     <header className="flex flex-col md:flex-row items-center px-6 md:px-12 lg:px-24 py-2 bg-primaryColor text-white">
       {/* Heading */}
-      <Link to={"/"} className="text-xl font-bold uppercase mb-2 md:mb-0 mr-20">
+      <Link to={"/"} className="text-xl font-bold uppercase mb-2 lg:mr-20">
         ETERATION
       </Link>
 
