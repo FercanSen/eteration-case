@@ -6,7 +6,6 @@ import ProductFilters from "../components/ProductFilters";
 import ProductItem from "../components/ProductItem";
 import Cart from "../components/Cart";
 import Pagination from "../components/Pagination";
-
 import { RootState } from "../redux/store";
 import { Product } from "../types/Product";
 import { ITEMS_PER_PAGE } from "../constants";
@@ -14,6 +13,7 @@ import { ITEMS_PER_PAGE } from "../constants";
 const ProductListPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
   const cartProducts = useSelector((state: RootState) => state.cart.products);
 
   useEffect(() => {
@@ -22,7 +22,6 @@ const ProductListPage: React.FC = () => {
         const response = await axios.get<Product[]>(
           "https://5fc9346b2af77700165ae514.mockapi.io/products"
         );
-
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -32,13 +31,18 @@ const ProductListPage: React.FC = () => {
     fetchProducts();
   }, []);
 
-  // Calculate total pages based on the total number of products
-  const totalPages = Math.ceil(products.length / ITEMS_PER_PAGE);
+  // Apply search filter
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Calculate total pages based on the filtered number of products
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
 
   // Calculate the index range for products to display
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
-  const productsToDisplay = products.slice(startIndex, endIndex);
+  const productsToDisplay = filteredProducts.slice(startIndex, endIndex);
 
   return (
     <div className="flex appPadding pt-8">

@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { RiUserLine } from "react-icons/ri";
 import { PiSuitcaseSimpleLight } from "react-icons/pi";
 import { TRY_CURRENCY_SYMBOL } from "../constants";
 import { Link } from "react-router-dom";
+import { setSearchTerm } from "../redux/searchSlice";
 
 const Header: React.FC = () => {
+  const [searchTerm, setSearchTermLocal] = useState("");
+  const dispatch = useDispatch();
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const term = e.target.value;
+    setSearchTermLocal(term);
+    dispatch(setSearchTerm(term)); // Update the search term in Redux store
+  };
+
   return (
     <header className="flex items-center appPadding py-2 bg-primaryColor text-white">
       {/* Heading */}
@@ -17,6 +28,8 @@ const Header: React.FC = () => {
         <input
           type="text"
           placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearchChange}
           className="px-4 py-2 w-64 text-black rounded-lg"
         />
       </div>
