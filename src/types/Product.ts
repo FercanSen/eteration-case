@@ -5,4 +5,5 @@ export interface Product {
   price: string;
   brand: string;
   model: string;
+  description: string;
 }
