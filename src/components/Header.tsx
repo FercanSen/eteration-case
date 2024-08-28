@@ -1,6 +1,7 @@
 import React from "react";
 import { RiUserLine } from "react-icons/ri";
 import { PiSuitcaseSimpleLight } from "react-icons/pi";
+import { currencySymbolTRY } from "../constants";
 
 const Header: React.FC = () => {
   return (
@@ -9,7 +10,7 @@ const Header: React.FC = () => {
       <h1 className="text-xl font-bold uppercase">ETERATION</h1>
 
       {/* Search Bar */}
-      <div className="ml-24">
+      <div className="ml-28">
         <input
           type="text"
           placeholder="Search..."
@@ -21,7 +22,7 @@ const Header: React.FC = () => {
         {/* Balance */}
         <div className="flex items-center space-x-2">
           <PiSuitcaseSimpleLight className="text-white" />
-          <span>117.00 &#8378;</span>
+          <span>117.00 {currencySymbolTRY}</span>
         </div>
 
         {/* Profile */}
