@@ -1,50 +1,33 @@
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import axios from "axios";
+
 import ProductFilters from "../components/ProductFilters";
 import ProductItem from "../components/ProductItem";
-import { RootState } from "../redux/store";
 import Cart from "../components/Cart";
 
-const ProductListPage = () => {
+import { RootState } from "../redux/store";
+import { Product } from "../types/Product";
+
+const ProductListPage: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
   const cartProducts = useSelector((state: RootState) => state.cart.products);
 
-  const products = [
-    {
-      id: 1,
-      imageUrl: "https://via.placeholder.com/150",
-      name: "Product 1",
-      price: 29.99,
-    },
-    {
-      id: 2,
-      imageUrl: "https://via.placeholder.com/150",
-      name: "Product 2",
-      price: 39.99,
-    },
-    {
-      id: 3,
-      imageUrl: "https://via.placeholder.com/150",
-      name: "Product 3",
-      price: 29.99,
-    },
-    {
-      id: 4,
-      imageUrl: "https://via.placeholder.com/150",
-      name: "Product 4",
-      price: 39.99,
-    },
-    {
-      id: 1,
-      imageUrl: "https://via.placeholder.com/150",
-      name: "Product 1",
-      price: 29.99,
-    },
-    {
-      id: 2,
-      imageUrl: "https://via.placeholder.com/150",
-      name: "Product 2",
-      price: 39.99,
-    },
-  ];
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get<Product[]>(
+          "https://5fc9346b2af77700165ae514.mockapi.io/products"
+        );
+
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   return (
     <div className="flex appPadding pt-8">
@@ -57,8 +40,9 @@ const ProductListPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {products.map((product) => (
             <ProductItem
+              key={product.id}
               id={product.id}
-              imageUrl={product.imageUrl}
+              image={product.image}
               name={product.name}
               price={product.price}
             />

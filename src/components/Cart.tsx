@@ -55,7 +55,7 @@ const Cart: React.FC<CartProps> = ({ products }) => {
                   <div className="flex-1">
                     <h3 className="text-lg">{product.name}</h3>
                     <p className="text-primaryColor">
-                      {product.price.toFixed(2) + " " + currencySymbolTRY}
+                      {product.price + " " + currencySymbolTRY}
                     </p>
                   </div>
                   <div className="flex flex-col ml-4 space-y-2">
@@ -94,7 +94,7 @@ const Cart: React.FC<CartProps> = ({ products }) => {
         <div className="flex justify-between mb-2">
           <span className="text-lg font-semibold">Total:</span>
           <span className="text-lg font-semibold text-primaryColor">
-            {totalPrice.toFixed(2) + " " + currencySymbolTRY}
+            {totalPrice + " " + currencySymbolTRY}
           </span>
         </div>
         <button className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors mb-2">
