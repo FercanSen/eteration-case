@@ -44,8 +44,15 @@ const cartSlice = createSlice({
     },
     decreaseQuantity: (state, action: PayloadAction<number>) => {
       const product = state.products.find((p) => p.id === action.payload);
-      if (product && product.quantity > 1) {
-        product.quantity -= 1;
+      if (product) {
+        if (product.quantity > 1) {
+          product.quantity -= 1;
+        } else {
+          // Remove the product if its quantity is 1 and decrease is called
+          state.products = state.products.filter(
+            (p) => p.id !== action.payload
+          );
+        }
       }
       saveCartToLocalStorage(state);
     },
