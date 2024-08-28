@@ -8,6 +8,7 @@ import Pagination from "../components/Pagination";
 import { RootState } from "../redux/store";
 import { Product } from "../types/Product";
 import { ITEMS_PER_PAGE } from "../constants";
+import Header from "../components/Header";
 
 const ProductListPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -67,44 +68,48 @@ const ProductListPage: React.FC = () => {
   const productsToDisplay = sortedProducts.slice(startIndex, endIndex);
 
   return (
-    <div className="flex flex-col lg:flex-row px-6 md:px-12 lg:px-24 pt-8">
-      {/* Product Filters */}
-      <div className="w-full lg:w-1/6 mb-4 lg:mb-0">
-        <ProductFilters />
-      </div>
-      {/* Product List */}
-      <div className="flex-1 p-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {productsToDisplay.length > 0 ? (
-            productsToDisplay.map((product) => (
-              <ProductItem
-                key={product.id}
-                id={product.id}
-                image={product.image}
-                name={product.name}
-                price={product.price}
-              />
-            ))
-          ) : (
-            <p className="flex items-center justify-center">
-              No products found
-            </p>
+    <>
+      <Header />
+
+      <div className="flex flex-col lg:flex-row px-6 md:px-12 lg:px-24 pt-8">
+        {/* Product Filters */}
+        <div className="w-full lg:w-1/6 mb-4 lg:mb-0">
+          <ProductFilters />
+        </div>
+        {/* Product List */}
+        <div className="flex-1 p-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {productsToDisplay.length > 0 ? (
+              productsToDisplay.map((product) => (
+                <ProductItem
+                  key={product.id}
+                  id={product.id}
+                  image={product.image}
+                  name={product.name}
+                  price={product.price}
+                />
+              ))
+            ) : (
+              <p className="flex items-center justify-center">
+                No products found
+              </p>
+            )}
+          </div>
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
           )}
         </div>
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={setCurrentPage}
-          />
-        )}
+        {/* Cart */}
+        <div className="w-full lg:w-1/6">
+          <Cart products={cartProducts} />
+        </div>
       </div>
-      {/* Cart */}
-      <div className="w-full lg:w-1/6">
-        <Cart products={cartProducts} />
-      </div>
-    </div>
+    </>
   );
 };
 

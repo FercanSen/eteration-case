@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../redux/store";
 import { addProduct } from "../redux/cartSlice";
 import { TRY_CURRENCY_SYMBOL } from "../constants";
+import Header from "../components/Header";
 
 const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -43,50 +44,55 @@ const ProductDetailPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row px-6 md:px-12 lg:px-24 pt-8">
-      <div className="flex-1 p-4 mx-0 lg:mx-4 shadow-md bg-white border rounded-lg">
-        <div className="flex flex-col lg:flex-row">
-          {/* Product Image */}
-          <div className=" flex items-center justify-center flex-shrink-0 w-full lg:w-1/2 mb-4 lg:mb-0">
-            {product ? (
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-80 object-cover rounded-lg shadow-md"
-              />
-            ) : (
-              <p>Loading image...</p>
-            )}
-          </div>
+    <>
+      <Header />
+      <div className="flex flex-col lg:flex-row px-6 md:px-12 lg:px-24 pt-8">
+        <div className="flex-1 p-4 mx-0 lg:mx-4 shadow-md bg-white border rounded-lg">
+          <div className="flex flex-col lg:flex-row">
+            {/* Product Image */}
+            <div className=" flex items-center justify-center flex-shrink-0 w-full lg:w-1/2 mb-4 lg:mb-0">
+              {product ? (
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-80 object-cover rounded-lg shadow-md"
+                />
+              ) : (
+                <p>Loading image...</p>
+              )}
+            </div>
 
-          {/* Product Information */}
-          <div className="lg:ml-8 flex-1">
-            {product ? (
-              <div>
-                <h2 className="text-3xl font-semibold mb-2">{product.name}</h2>
-                <p className="text-xl mb-4">
-                  {product.price + " " + TRY_CURRENCY_SYMBOL}
-                </p>
-                <button
-                  onClick={handleAddToCart}
-                  className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors mb-4"
-                >
-                  Add to Cart
-                </button>
-                <p>{product.description}</p>
-              </div>
-            ) : (
-              <p>Loading details...</p>
-            )}
+            {/* Product Information */}
+            <div className="lg:ml-8 flex-1">
+              {product ? (
+                <div>
+                  <h2 className="text-3xl font-semibold mb-2">
+                    {product.name}
+                  </h2>
+                  <p className="text-xl mb-4">
+                    {product.price + " " + TRY_CURRENCY_SYMBOL}
+                  </p>
+                  <button
+                    onClick={handleAddToCart}
+                    className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors mb-4"
+                  >
+                    Add to Cart
+                  </button>
+                  <p>{product.description}</p>
+                </div>
+              ) : (
+                <p>Loading details...</p>
+              )}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Cart */}
-      <div className="w-full lg:w-1/4 mt-4 lg:mt-0">
-        <Cart products={cartProducts} />
+        {/* Cart */}
+        <div className="w-full lg:w-1/4 mt-4 lg:mt-0">
+          <Cart products={cartProducts} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
