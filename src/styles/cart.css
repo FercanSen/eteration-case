@@ -1,0 +1,9 @@
+@media (min-width: 1024px) and (max-width: 1440px) {
+  .cartContainer {
+    @apply flex-col;
+  }
+  .quantityButtons {
+    @apply ml-0 !important;
+    @apply mt-2;
+  }
+}

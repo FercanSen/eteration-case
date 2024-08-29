@@ -10,6 +10,8 @@ import {
 import { TRY_CURRENCY_SYMBOL } from "../constants";
 import { CartProduct } from "../types/CartProduct";
 
+import "../styles/cart.css";
+
 interface CartProps {
   products: CartProduct[];
 }
@@ -41,7 +43,7 @@ const Cart: React.FC<CartProps> = ({ products }) => {
   return (
     <>
       <h2 className="text-xl mb-2">Cart</h2>
-      <div className="border rounded-lg shadow-md p-4 bg-white">
+      <div className="border rounded-lg shadow-md p-4 bg-white cartStyle">
         {products.length === 0 ? (
           <p className="text-center text-gray-500">Your cart is empty</p>
         ) : (
@@ -50,7 +52,7 @@ const Cart: React.FC<CartProps> = ({ products }) => {
               {products.map((product) => (
                 <div
                   key={product.id}
-                  className="flex items-center justify-between border-b pb-2 mb-2"
+                  className="flex cartContainer items-center justify-between border-b pb-2 mb-2"
                 >
                   <div className="flex-1 overflow-hidden">
                     <h3 className="text-lg">{product.name}</h3>
@@ -58,7 +60,7 @@ const Cart: React.FC<CartProps> = ({ products }) => {
                       {product.price + " " + TRY_CURRENCY_SYMBOL}
                     </p>
                   </div>
-                  <div className="flex flex-col ml-4 space-y-2">
+                  <div className="quantityButtons flex flex-col ml-4 space-y-2">
                     <div className="flex items-center">
                       <button
                         onClick={() => handleDecreaseQuantity(product.id)}
@@ -101,13 +103,13 @@ const Cart: React.FC<CartProps> = ({ products }) => {
           Checkout
         </button>
         {products.length > 0 && (
-        <button
-          onClick={handleClearCart}
-          className="w-full py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
-        >
-          Clear Cart
-        </button>
-      )}
+          <button
+            onClick={handleClearCart}
+            className="w-full py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+          >
+            Clear Cart
+          </button>
+        )}
       </div>
     </>
   );
