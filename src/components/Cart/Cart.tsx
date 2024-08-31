@@ -1,16 +1,17 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../redux/store";
+import { AppDispatch } from "../../redux/store";
 import {
   decreaseQuantity,
   increaseQuantity,
   removeProduct,
   clearCart,
-} from "../redux/cartSlice";
-import { TRY_CURRENCY_SYMBOL } from "../constants";
-import { CartProduct } from "../types/CartProduct";
+} from "../../redux/cartSlice";
+import { TRY_CURRENCY_SYMBOL } from "../../constants";
+import { CartProduct } from "../../types/CartProduct";
 
-import "../styles/cart.css";
+import "../../styles/cart.css";
+import CartItem from "./CartItem";
 
 interface CartProps {
   products: CartProduct[];
@@ -50,42 +51,13 @@ const Cart: React.FC<CartProps> = ({ products }) => {
           <>
             <div className="space-y-4">
               {products.map((product) => (
-                <div
+                <CartItem
                   key={product.id}
-                  className="flex cartContainer items-center justify-between border-b last:border-b-0 pb-2 mb-2"
-                >
-                  <div className="flex-1 overflow-hidden">
-                    <h3 className="text-lg">{product.name}</h3>
-                    <p className="text-primaryColor text-sm">
-                      {product.price + " " + TRY_CURRENCY_SYMBOL}
-                    </p>
-                  </div>
-                  <div className="quantityButtons flex flex-col ml-4 space-y-2">
-                    <div className="flex items-center">
-                      <button
-                        onClick={() => handleDecreaseQuantity(product.id)}
-                        className="h-8 w-8 bg-gray-300 hover:bg-gray-400 flex items-center justify-center text-center rounded-l-lg"
-                      >
-                        -
-                      </button>
-                      <span className="h-8 w-8 bg-primaryColor flex items-center justify-center text-center text-white">
-                        {product.quantity}
-                      </span>
-                      <button
-                        onClick={() => handleIncreaseQuantity(product.id)}
-                        className="h-8 w-8 bg-gray-300 hover:bg-gray-400 flex items-center justify-center text-center rounded-r-lg"
-                      >
-                        +
-                      </button>
-                    </div>
-                    <button
-                      onClick={() => handleRemoveProduct(product.id)}
-                      className="h-8 w-24 bg-red-500 text-white rounded hover:bg-red-600"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </div>
+                  product={product}
+                  onIncreaseQuantity={handleIncreaseQuantity}
+                  onDecreaseQuantity={handleDecreaseQuantity}
+                  onRemoveProduct={handleRemoveProduct}
+                />
               ))}
             </div>
           </>

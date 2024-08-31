@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import ProductFilters from "../components/ProductFilters";
 import ProductItem from "../components/ProductItem";
-import Cart from "../components/Cart";
+import Cart from "../components/Cart/Cart";
 import Pagination from "../components/Pagination";
 import { RootState } from "../redux/store";
 import { Product } from "../types/Product";
