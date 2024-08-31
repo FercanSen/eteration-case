@@ -9,8 +9,10 @@ import { RootState } from "../redux/store";
 import { Product } from "../types/Product";
 import { ITEMS_PER_PAGE } from "../constants";
 import Header from "../components/Header";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const ProductListPage: React.FC = () => {
+  const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
@@ -21,6 +23,7 @@ const ProductListPage: React.FC = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true);
       try {
         const response = await axios.get<Product[]>(
           "https://5fc9346b2af77700165ae514.mockapi.io/products"
@@ -28,6 +31,8 @@ const ProductListPage: React.FC = () => {
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -78,23 +83,29 @@ const ProductListPage: React.FC = () => {
         </div>
         {/* Product List */}
         <div className="flex-1 p-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {productsToDisplay.length > 0 ? (
-              productsToDisplay.map((product) => (
-                <ProductItem
-                  key={product.id}
-                  id={product.id}
-                  image={product.image}
-                  name={product.name}
-                  price={product.price}
-                />
-              ))
-            ) : (
-              <p className="flex items-center justify-center">
-                No products found
-              </p>
-            )}
-          </div>
+          {loading ? (
+            // Show Spinner while loading
+            <LoadingSpinner />
+          ) : (
+            // Show products or no products found
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {productsToDisplay.length > 0 ? (
+                productsToDisplay.map((product) => (
+                  <ProductItem
+                    key={product.id}
+                    id={product.id}
+                    image={product.image}
+                    name={product.name}
+                    price={product.price}
+                  />
+                ))
+              ) : (
+                <p className="flex items-center justify-center">
+                  No products found
+                </p>
+              )}
+            </div>
+          )}
           {/* Pagination */}
           {totalPages > 1 && (
             <Pagination
