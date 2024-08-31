@@ -52,7 +52,7 @@ const Cart: React.FC<CartProps> = ({ products }) => {
               {products.map((product) => (
                 <div
                   key={product.id}
-                  className="flex cartContainer items-center justify-between border-b pb-2 mb-2"
+                  className="flex cartContainer items-center justify-between border-b last:border-b-0 pb-2 mb-2"
                 >
                   <div className="flex-1 overflow-hidden">
                     <h3 className="text-lg">{product.name}</h3>
