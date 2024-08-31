@@ -1,5 +1,4 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ProductListPage from "./ProductListPage";
 import { Provider } from "react-redux";
@@ -102,33 +101,23 @@ describe("ProductListPage", () => {
     expect(product1).toBeInTheDocument();
   });
 
-  describe("Redux Provider Wrapping", () => {
-    const store = configureStore({
-      reducer: {
-        filter: filterReducer,
-        cart: cartReducer,
-        search: searchReducer,
-      },
-      preloadedState: {
-        search: { searchTerm: "test" },
-        cart: { products: [] },
-        filter: { brand: [], model: [], sortBy: null },
-      },
-    });
-
-    test("throws error if not wrapped with Provider", () => {
-      expect(() => render(<App />)).toThrow(
-        "could not find react-redux context value; please ensure the component is wrapped in a <Provider>"
-      );
-    });
-
-    test("renders correctly when wrapped with Provider", () => {
-      const { getByTestId } = render(
+  describe("Search functionality", () => {
+    test("searches for a product and finds it", async () => {
+      render(
         <Provider store={store}>
           <App />
         </Provider>
       );
-      expect(screen.getByTestId("search-term")).toHaveTextContent("test");
+
+      const searchInput = screen.getByPlaceholderText("Search...");
+
+      fireEvent.change(searchInput, { target: { value: "Product 1" } });
+
+      await waitFor(() => {
+        expect(screen.getByText("Product 1")).toBeInTheDocument();
+      });
+
+      expect(screen.queryByText("Product 2")).not.toBeInTheDocument();
     });
   });
 });
