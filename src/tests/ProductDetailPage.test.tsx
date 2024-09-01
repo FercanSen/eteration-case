@@ -100,16 +100,19 @@ describe("ProductDetailPage", () => {
   });
 
   test("dispatches addProduct action when clicking 'Add to Cart'", async () => {
-    const store = configureStore({
-      reducer: {
-        cart: cartReducer,
-      },
-    });
+    const dispatch = jest.spyOn(mockStore, "dispatch");
+    const mockProduct = {
+      id: 1,
+      name: "Product 1",
+      price: 100,
+      description: "A great product",
+      image: "http://example.com/image.jpg",
+    };
 
-    const dispatch = jest.spyOn(store, "dispatch");
+    mockedAxios.get.mockResolvedValueOnce({ data: mockProduct });
 
     render(
-      <Provider store={store}>
+      <Provider store={mockStore}>
         <MemoryRouter>
           <ProductDetailPage />
         </MemoryRouter>
@@ -117,9 +120,9 @@ describe("ProductDetailPage", () => {
     );
 
     await waitFor(() => {
-      const addToCartButton = screen.getByText("Add to Cart");
-      expect(addToCartButton).toBeInTheDocument();
+      expect(screen.getByText("Add to Cart")).toBeInTheDocument();
     });
+    fireEvent.click(screen.getByText("Add to Cart"));
 
     expect(dispatch).toHaveBeenCalledWith(
       expect.objectContaining({
