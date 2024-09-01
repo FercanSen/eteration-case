@@ -1,13 +1,14 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import ProductListPage from "./ProductListPage";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
+import { MemoryRouter } from "react-router-dom";
+import axios from "axios";
+
+import ProductListPage from "../pages/ProductListPage";
 import filterReducer from "../redux/filterSlice";
 import cartReducer from "../redux/cartSlice";
 import searchReducer from "../redux/searchSlice";
-import { MemoryRouter } from "react-router-dom";
-import axios from "axios";
 import App from "../App";
 
 jest.mock("axios");
